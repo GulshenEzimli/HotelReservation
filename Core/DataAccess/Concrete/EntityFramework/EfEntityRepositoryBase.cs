@@ -18,7 +18,7 @@ namespace Core.DataAccess.Concrete.EntityFramework
                 context.SaveChanges();
             }
         }
-
+   
         public void Delete(TEntity entity)
         {
             using (TContext context = new TContext())

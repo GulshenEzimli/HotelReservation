@@ -12,6 +12,6 @@ namespace DataAccess.Abstract
 {
     public interface IRoomDal : IEntityRepository<Room>
     {
-        List<RoomDetails> GetRoomDetails(Expression<Func<Room, bool>> filter = null);
+        List<RoomDetails> GetRoomDetails(Expression<Func<Room, bool>>? filter);
     }
 }

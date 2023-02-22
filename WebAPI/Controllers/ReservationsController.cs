@@ -66,5 +66,15 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+        [HttpGet("getdetails")]
+        public IActionResult GetReservationDetails(Expression<Func<Reservation, bool>>? filter)
+        {
+            var result = this._reservationService.GetReservationDetails(filter);
+            if(result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }

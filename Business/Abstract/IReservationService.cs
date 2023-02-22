@@ -12,7 +12,7 @@ namespace Business.Abstract
         IResult Delete(Reservation reservation);
         IDataResult<List<Reservation>> GetAll(Expression<Func<Reservation, bool>>? filter);
         IDataResult<Reservation> Get(Expression<Func<Reservation,bool>> filter);
-        IDataResult<List<ReservationDetails>> GetReservationDetails();
+        IDataResult<List<ReservationDetails>> GetReservationDetails(Expression<Func<Reservation, bool>>? filter);
     }
 
 }

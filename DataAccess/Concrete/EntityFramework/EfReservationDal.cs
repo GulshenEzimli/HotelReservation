@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfReservationDal : EfEntityRepositoryBase<Reservation, HotelContext>, IReservationDal
     {
-        public List<ReservationDetails> GetReservationDetails(Expression<Func<Reservation, bool>> filter = null)
+        public List<ReservationDetails> GetReservationDetails(Expression<Func<Reservation, bool>>? filter)
         {
             using (HotelContext context = new HotelContext())
             {

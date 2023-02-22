@@ -12,6 +12,6 @@ namespace DataAccess.Abstract
 {
     public interface IReservationDal : IEntityRepository<Reservation>
     {
-        List<ReservationDetails> GetReservationDetails(Expression<Func<Reservation, bool>> filter = null);
+        List<ReservationDetails> GetReservationDetails(Expression<Func<Reservation, bool>>? filter);
     }
 }

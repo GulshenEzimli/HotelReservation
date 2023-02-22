@@ -63,9 +63,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getroomdetails")]
-        public IActionResult GetRoomDetails()
+        public IActionResult GetRoomDetails(Expression<Func<Room, bool>>? filter)
         {
-            var result = this._roomService.GetRoomDetails();
+            var result = this._roomService.GetRoomDetails(filter);
             if (result.Success)
             {
                 return Ok(result.Data);

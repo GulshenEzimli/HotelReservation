@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
@@ -22,9 +23,9 @@ namespace Business.Concrete
         {
             _adminDal = adminDal;
         }
+        [ValidationAspect(typeof(AdminValidator))]
         public IResult Add(Admin admin)
         {
-            ValidatorTool.Validate(admin, new AdminValidator());
             _adminDal.Add(admin);
             return new SuccessResult(Messages.AdminAdded);
         }
@@ -43,9 +44,9 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Admin>(_adminDal.Get(filter));
         }
+        [ValidationAspect(typeof(AdminValidator))]
         public IResult Update(Admin admin)
         {
-            ValidatorTool.Validate(admin, new AdminValidator());
             _adminDal.Update(admin);
             return new SuccessResult(Messages.AdminUpdated);
         }

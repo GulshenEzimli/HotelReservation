@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
@@ -24,9 +25,9 @@ namespace Business.Concrete
             _roomDal = roomDal;
         }
 
+        [ValidationAspect(typeof(RoomValidator))]
         public IResult Add(Room room)
         {
-            ValidatorTool.Validate(room, new RoomValidator());
             _roomDal.Add(room);
             return new SuccessResult(Messages.RoomAdded);
         }
@@ -47,14 +48,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Room>>(_roomDal.GetAll(filter));
         }
 
-        public IDataResult<List<RoomDetails>> GetRoomDetails()
+        public IDataResult<List<RoomDetails>> GetRoomDetails(Expression<Func<Room, bool>>? filter)
         {
-            return new SuccessDataResult<List<RoomDetails>>(_roomDal.GetRoomDetails());
+            return new SuccessDataResult<List<RoomDetails>>(_roomDal.GetRoomDetails(filter));
         }
 
+        [ValidationAspect(typeof(RoomValidator))]
         public IResult Update(Room room)
         {
-            ValidatorTool.Validate(room, new RoomValidator());
             _roomDal.Update(room);
             return new SuccessResult(Messages.RoomUpdated);
         }

@@ -12,6 +12,6 @@ namespace DataAccess.Abstract
 {
     public interface IContactDal : IEntityRepository<Contact>
     {
-        List<ContactDetails> GetContactDetails(Expression<Func<Contact, bool>> filter = null);
+        List<ContactDetails> GetContactDetails(Expression<Func<Contact, bool>>? filter);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
@@ -24,9 +25,9 @@ namespace Business.Concrete
             _contactDal = contactDal;
         }
 
+        [ValidationAspect(typeof(ContactValidator))]
         public IResult Add(Contact contact)
         {
-            ValidatorTool.Validate(contact, new ContactValidator());
             _contactDal.Add(contact);
             return new SuccessResult(Messages.ContactAdded);
         }
@@ -52,9 +53,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ContactDetails>>(_contactDal.GetContactDetails());
         }
 
+        [ValidationAspect(typeof(ContactValidator))]
         public IResult Update(Contact contact)
         {
-            ValidatorTool.Validate(contact, new ContactValidator());
             _contactDal.Update(contact);
             return new SuccessResult(Messages.ContactUpdated);
         }

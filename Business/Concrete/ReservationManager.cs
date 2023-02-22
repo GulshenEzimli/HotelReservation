@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
@@ -23,9 +24,10 @@ namespace Business.Concrete
         {
             _reservationDal = reservationDal;
         }
+
+        [ValidationAspect(typeof(ReservationValidator))]
         public IResult Add(Reservation reservation)
         {
-            ValidatorTool.Validate(reservation, new ReservationValidator());
             _reservationDal.Add(reservation);
             return new SuccessResult(Messages.ReservationAdded);
         }
@@ -46,14 +48,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Reservation>>(_reservationDal.GetAll(filter));
         }
 
-        public IDataResult<List<ReservationDetails>> GetReservationDetails()
+        public IDataResult<List<ReservationDetails>> GetReservationDetails(Expression<Func<Reservation, bool>>? filter)
         {
-            return new SuccessDataResult<List<ReservationDetails>>(_reservationDal.GetReservationDetails());
+            return new SuccessDataResult<List<ReservationDetails>>(_reservationDal.GetReservationDetails(filter));
         }
 
+        [ValidationAspect(typeof(ReservationValidator))]
         public IResult Update(Reservation reservation)
         {
-            ValidatorTool.Validate(reservation, new ReservationValidator());
             _reservationDal.Update(reservation);
             return new SuccessResult(Messages.ReservationUpdated);
         }

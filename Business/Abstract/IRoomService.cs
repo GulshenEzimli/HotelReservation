@@ -11,7 +11,7 @@ namespace Business.Abstract
         IResult Update(Room room);
         IResult Delete(Room room);
         IDataResult<List<Room>> GetAll(Expression<Func<Room,bool>>? filter);
-        IDataResult<List<RoomDetails>> GetRoomDetails();
+        IDataResult<List<RoomDetails>> GetRoomDetails(Expression<Func<Room, bool>>? filter);
         IDataResult<Room> Get(Expression<Func<Room, bool>> filter);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
@@ -24,9 +25,9 @@ namespace Business.Concrete
             _res_ServiceDal = res_ServiceDal;
         }
 
+        [ValidationAspect(typeof(ResServices_Validator))]
         public IResult Add(Res_Services res_service)
         {
-            ValidatorTool.Validate(res_service, new ResServices_Validator());
             _res_ServiceDal.Add(res_service);
             return new SuccessResult(Messages.ResServiceAdded);
         }
@@ -42,9 +43,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Res_Services>>(_res_ServiceDal.GetAll(filter));
         }
 
+        [ValidationAspect(typeof(ResServices_Validator))]
         public IResult Update(Res_Services res_service)
         {
-            ValidatorTool.Validate(res_service, new ResServices_Validator());
             _res_ServiceDal.Update(res_service);
             return new SuccessResult(Messages.ReservationUpdated);
         }

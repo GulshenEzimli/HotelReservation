@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
@@ -23,9 +24,9 @@ namespace Business.Concrete
             _typesDal = typesDal;
         }
 
+        [ValidationAspect(typeof(TypesValidator))]
         public IResult Add(Types types)
         {
-            ValidatorTool.Validate(types, new TypesValidator());
             _typesDal.Add(types);
             return new SuccessResult(Messages.TypeAdded);
         }
@@ -41,9 +42,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Types>>(_typesDal.GetAll(filter));
         }
 
+        [ValidationAspect(typeof(TypesValidator))]
         public IResult Update(Types types)
         {
-            ValidatorTool.Validate(types, new TypesValidator());
             _typesDal.Update(types);
             return new SuccessResult(Messages.TypeUpdated);
         }
